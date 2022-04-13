@@ -4,13 +4,39 @@ import 'package:todo_list_provider/app/exception/auth_exception.dart';
 
 class LoginController extends DefaultChangeNotifier {
   final UserService _userService;
+  String? infoMessage;
   LoginController({
     required UserService userService,
   }) : _userService = userService;
+  bool get hasInfo => infoMessage != null;
+
+  Future<void>googleLogin()async{
+try{showLoadingAndResetState();
+infoMessage = null;
+notifyListeners();
+final user = await _userService.googleLogin();
+if(user != null){
+  sucess();
+}else{
+  _userService.logout();
+  setError(
+    "Erro ao realizar login com o Google"
+  );
+}
+  }on AuthException catch(e){
+    _userService.logout();
+    setError(e.message);
+  }finally{
+    hideLoading();
+    notifyListeners();
+  }
+  }
+  
 
   Future<void> login(String email, String password) async {
     try {
       showLoadingAndResetState();
+      infoMessage = null;
       notifyListeners();
       final user = await _userService.login(email, password);
 
