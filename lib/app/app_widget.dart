@@ -1,5 +1,9 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: prefer_const_constructors
+
+
 import 'package:flutter/material.dart';
+
 import 'package:todo_list_provider/app/core/database/sqlite_adm_connection.dart';
 import 'package:todo_list_provider/app/core/modules/tasks/tasks_module.dart';
 import 'package:todo_list_provider/app/core/navigator/todo_list_navigator.dart';
@@ -19,7 +23,7 @@ class _AppWidgetState extends State<AppWidget> {
   final sqliteAdmConnection = SqliteAdmConnection();
   @override
   void initState() {
-    //FirebaseAuth auth = FirebaseAuth.instance;
+   // FirebaseAuth auth = FirebaseAuth.instance;
     super.initState();
     WidgetsBinding.instance?.addObserver(sqliteAdmConnection);
   }
@@ -36,6 +40,17 @@ class _AppWidgetState extends State<AppWidget> {
       title: "Todo List Provider",
       theme: TodoListUiConfig.theme,
       navigatorKey: TodoListNavigator.navigatorKey,
+      // ignore: prefer_const_literals_to_create_immutables
+      //localizationsDelegates: [
+       // GlobalMaterialLocalizations.delegate,
+        //GlobalWidgetsLocalizations.delegate,
+
+     // ],
+      // ignore: prefer_const_literals_to_create_immutables
+     // supportedLocales: [
+      //  Locale("pt","BR"),
+      //],
+      
       
       routes: {
         ...AuthModule().routers,

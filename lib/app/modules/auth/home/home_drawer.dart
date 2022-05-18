@@ -22,9 +22,9 @@ class HomeDrawer extends StatelessWidget {
               color: context.primaryColor.withAlpha(70)
             ),
             child: Row(
-            // ignore: prefer_const_literals_to_create_immutables
+            
             children: [
-             // ignore: prefer_const_constructors
+             
              Selector<AuthProvider,String>( selector: (context,authProvider){
              return authProvider.user?.photoURL ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5xVXwtpsTo55I4QIHcROte_oIUw9_aV8SFA&usqp=CAU";
              },builder:(_,value,__){
