@@ -1,21 +1,37 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_list_provider/app/core/modules/tasks/tasks_create_page.dart';
+
 import 'package:todo_list_provider/app/core/modules/tasks/tasks_module.dart';
 import 'package:todo_list_provider/app/core/ui/theme_extensions.dart';
 import 'package:todo_list_provider/app/core/ui/todo_list_icons.dart';
-import 'package:todo_list_provider/app/modules/auth/home/widgets/home_drawer.dart';
-import 'package:todo_list_provider/app/modules/auth/home/widgets/home_filters.dart';
-import 'package:todo_list_provider/app/modules/auth/home/widgets/home_header.dart';
-import 'package:todo_list_provider/app/modules/auth/home/widgets/home_tasks.dart';
-import 'package:todo_list_provider/app/modules/auth/home/widgets/home_week.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_controller.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_drawer.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_filters.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_header.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_tasks.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_week.dart';
 import 'package:todo_list_provider/app/modules/auth/home/widgets/task.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+final  HomeController _homeController;
 
-  HomePage({ Key? key }) : super(key: key);
+  HomePage({ Key? key,required HomeController homeController }) :
+  _homeController = homeController,
+   super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+@override
+void initState(){
+  super.initState();
+  widget._homeController.loadTotalTasks();
+}
+
+
   void _goToCreateTask(BuildContext context){
 Navigator.of(context).push(
   PageRouteBuilder(
@@ -24,6 +40,7 @@ Navigator.of(context).push(
       animation = CurvedAnimation(parent: animation,curve: Curves.easeInQuad); 
       return ScaleTransition(scale: animation,
       alignment: Alignment.bottomRight,
+      child: child,
       );
       },
     
@@ -45,10 +62,10 @@ Navigator.of(context).push(
              elevation: 0,
              actions: [
                PopupMenuButton(
-                 // ignore: prefer_const_constructors
+                 
                  icon: Icon(TodoListIcons.filter),
                  itemBuilder:(_)=> [
-                   // ignore: prefer_const_constructors
+                
                    PopupMenuItem<bool>(child: Text("Mostrar tarefas concluidas"))
 
                  ],
@@ -74,9 +91,9 @@ Navigator.of(context).push(
                     child: IntrinsicHeight(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        // ignore: prefer_const_literals_to_create_immutables
+                       
                         children: [
-                        // ignore: prefer_const_constructors
+                        
                         HomeHeader(),
                         HomeFilters(),
                          HomeWeek(),

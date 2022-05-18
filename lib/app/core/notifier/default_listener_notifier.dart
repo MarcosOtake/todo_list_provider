@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:todo_list_provider/app/core/notifier/default_change_notifier.dart';
@@ -12,7 +14,7 @@ class DefaultListenerNotifier {
   void listener({
     required BuildContext context,
     required SucessVoidCallBack sucessVoidCallBack,
-    ErrorVoidCallBack? errorVoidCallBack,
+    ErrorVoidCallBack? errorVoidCallBack, Null Function(dynamic notifier, dynamic listenerInstance)? SucessCallBack,
   }) {
     changeNotifier.addListener(() {
       if (changeNotifier.loading) {

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:todo_list_provider/app/core/ui/theme_extensions.dart';
 import 'package:todo_list_provider/app/modules/auth/home/widgets/task.dart';
@@ -19,6 +21,7 @@ class HomeTasks extends StatelessWidget {
              style:context.titleStyle ,
              ),
              Column(
+               
                children: [
                  Task(),
                  Task(),
