@@ -7,18 +7,18 @@ import 'package:todo_list_provider/app/core/database/sqlite_migration_factory.da
 
 class SqliteConnectionFactory {
   static SqliteConnectionFactory? _instance;
-  
-  static const _VERSION = 1;
-  
+
+  static const _VERSION = 2;
+
   static const _DATABASE_NAME = 'TODO_LIST_PROVIDER';
   SqliteConnectionFactory._();
   Database? _db;
   final _lock = Lock();
 
   factory SqliteConnectionFactory() {
-  //  if(_instance ==null){
+    //  if(_instance ==null){
     //  _instance = SqliteConnectionFactory._();
-  //  }
+    //  }
     _instance ??= _instance = SqliteConnectionFactory._();
 
     return _instance!;
@@ -29,7 +29,6 @@ class SqliteConnectionFactory {
     var dataBasePathFinal = join(databasePath, _DATABASE_NAME);
     if (_db == null) {
       _lock.synchronized(() async {
-       
         if (_db == null) {
           _db = await openDatabase(
             dataBasePathFinal,
@@ -39,10 +38,22 @@ class SqliteConnectionFactory {
             onUpgrade: _onUpgrade,
             onDowngrade: _onDowngrade,
           );
+          print(' Banco de dados $_db');
         }
-        
       });
     }
+    if (_db == null) {
+      _db = await openDatabase(
+        dataBasePathFinal,
+        version: _VERSION,
+        onConfigure: _onConfigure,
+        onCreate: _onCreate,
+        onUpgrade: _onUpgrade,
+        onDowngrade: _onDowngrade,
+      );
+      print(' Banco de dados $_db');
+    }
+
     return _db!;
   }
 
