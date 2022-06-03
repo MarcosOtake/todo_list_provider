@@ -11,9 +11,7 @@ class HomeHeader extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-      return Row(
-      children: [
-        Padding(
+      return Padding(
           padding: const EdgeInsets.symmetric(vertical:20),
           child: Selector<AuthProvider,String>(
             selector:(context,authProvider)=>authProvider.user?.displayName ?? "Nao informado",
@@ -25,11 +23,8 @@ class HomeHeader extends StatelessWidget{
             ),
              );
           }),
-        )
-      ],
-      );
-        
-          
-          
+        );
+     
+                  
       
   }}

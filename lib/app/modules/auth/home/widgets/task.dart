@@ -1,10 +1,15 @@
 // ignore_for_file: prefer_const_constructors, dead_code
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list_provider/app/modules/auth/home/home_controller.dart';
+import 'package:todo_list_provider/app/modules/task_model.dart';
 
 class Task extends StatelessWidget {
-
-  const Task({ Key? key }) : super(key: key);
+final TaskModel model;
+final dateFormat = DateFormat("dd/MM/y");
+  Task({ Key? key,required this.model }) : super(key: key);
 
    @override
    Widget build(BuildContext context) {
@@ -24,17 +29,25 @@ class Task extends StatelessWidget {
            child:ListTile(
              contentPadding: EdgeInsets.all(8),
              leading: Checkbox(
-               value: true,
-               onChanged: (value){},
+               value: model.finished,
+               onChanged: (value)=>context.read<HomeController>().checkOrUnchTask(model),
+
+               
                ),
-               title: Text("Descricao da TASK",
+               title: Text(
+                 model.description,
                style: TextStyle(
-                 decoration: false? TextDecoration.lineThrough : null),
+                 decoration: model.finished ? TextDecoration.lineThrough : null),
                ),
-               subtitle: Text("07/04/2022",
+               subtitle: Text(
+                dateFormat.format(model.dateTime),
                style:TextStyle(
-                 decoration: false? TextDecoration.lineThrough : null),
+                 decoration: model.finished ? TextDecoration.lineThrough : null),
                ),
+               shape: RoundedRectangleBorder(
+                 borderRadius:BorderRadius.circular(20),
+                 side: BorderSide(width: 1)
+                  ),
            ) ),
        );
   }
